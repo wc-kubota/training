@@ -232,7 +232,6 @@ export default {
       const height = window.innerHeight;
       let rotatePercentage = window.pageYOffset/height
       this.deg = rotatePercentage * 180 + 180
-      console.log(this.deg)
      }
   },
   mounted() {
