@@ -57,15 +57,15 @@
         <div class="life-plan-number">
           <span class="number-color"><p>2</p></span>
         </div>
-        <span class="box-header"><p>自由に働く</p></span>
-        <p>エンジニアの場所にとらわれない働き方にあこがれた</p>
+        <span class="box-header"><p>専門性く</p></span>
+        <p>手に職を付けられる仕事がしたい</p>
       </div>
       <div class="life-plan-box last-child">
         <div class="life-plan-number">
           <span class="number-color"><p>3</p></span>
         </div>
-        <span class="box-header"><p>自由に働く</p></span>
-        <p>エンジニアの場所にとらわれない働き方にあこがれた</p>
+        <span class="box-header"><p>自慢したい</p></span>
+        <p>誰かに使ってもらえるものを作りたい</p>
       </div>
     </div>
   </div>
@@ -419,6 +419,8 @@ h2
   border: 1px solid cmn.$natural-300
   border-radius: 10px
   padding: 0 50px 30px 50px
+  p 
+    text-align: center
 
   .number-color p
     display: block
@@ -433,7 +435,7 @@ h2
   .box-header p
     margin-bottom: 10px
     text-align: center
-    color: #00474d
+    color: cmn.$primary-800
 .last-child
   margin-right: 0
 

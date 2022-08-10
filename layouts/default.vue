@@ -14,9 +14,9 @@
 footer
   width: 100%
   height: 60px
+  padding: 18px 60px
   background-color: #444a4b
   p
     display: block
-    margin-left: 60px
     color: #fefefe
 </style>
