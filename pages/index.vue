@@ -325,6 +325,7 @@ h1
   font-weight: bold
   margin: 80px auto 0 auto
   position: relative
+  white-space: nowrap
 
 .scroll 
   margin-top: 50px
