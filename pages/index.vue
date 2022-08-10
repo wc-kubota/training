@@ -2,7 +2,7 @@
   <main>
 
   <!-- ここからhero -->
-  <div class="hero">
+  <div class="hero" id="hero" :class="{'hidden': isActive}">
     <div class="main-hero">
       <div class="hero-image">
         <img src="../assets/images/freely.png" alt="">
@@ -24,7 +24,7 @@
   </div>
 
   <!-- ここからwhy -->
-  <div class="why">
+  <div class="why" id="why">
     <div class="why-sentence">
       <h3>そもそもなぜエンジニアなのか</h3>
       <p>お金が稼げそう</p>
@@ -165,29 +165,31 @@
     <chart :styles='chartScale' />
   </div>
   <!-- footer -->
-  <footer>
-    <p>©kubota-kouki portforio</p>
-  </footer>
+
 </main>
 </template>
 
 <script>
 import { Hooper, Slide,Navigation } from 'hooper';
 import 'hooper/dist/hooper.css';
-import chart from '../components/Chart.vue'
+import chart from '../components/Chart.vue';
 
 export default {
   name: 'IndexPage',
+  layout: 'default',
   components: {
     Hooper,
     Slide,
     Navigation,
-    chart
+    chart,
   },
   data() {
     return {
       height: 100,
-      width: 100
+      width: 100,
+      isActive: false,
+      hero: 0,
+      why: 0
     }
   },
   computed: {
@@ -196,44 +198,33 @@ export default {
         height: `${this.height}%`,
         width: `${this.width}%`
       }
-    }
+    },
+  },
+  methods: {
+      heroSticky() {
+       const hidden = document.querySelectorAll('hidden')
+       function clientsRect (target) {
+         return target.getBoundingClientRect().top + window.pageYOffset;
+       }
+         if(this.hero <  window.pageYOffset)
+         {
+          this.isActive = true
+         } else {
+           this.isActive = false
+         }
+     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("scroll", this.heroSticky)
+      this.hero = document.getElementById('hero').clientHeight;
+    })
   }
 };
 </script>
 
 <style lang="sass" scoped>
-
-/* primary-color */
-$primary-100: '#f2pff'
-$primary-200: '#bae1fe'
-$primary-300: '#7fcbf7'
-$primary-400: '#44b4e5'
-$primary-500: '#1095c2'
-$primary-600: '#057e9b'
-$primary-700: '#016574'
-$primary-800: '#00474d'
-$primary-900: '#002626'
-
-$secondary-100: '#fff2f9'
-$secondary-200: '#ffc5e6'
-$secondary-300: '#fc96d7'
-$secondary-400: '#f667ca'
-$secondary-500: '#eb38be'
-$secondary-600: '#ba179a'
-$secondary-700: '#880977'
-$secondary-800: '#570451'
-$secondary-900: '#260226'
-
-$natural-100: '#fafbfc'
-$natural-200: '#e5e8eb'
-$natural-300: '#d0d6da'
-$natural-400: '#bcc5c9'
-$natural-500: '#a9b488'
-$natural-600: '#879193'
-$natural-700: '#656d6f'
-$natural-800: '#444a4b'
-$natural-900: '#222626'
-
+@use "@/assets/sass/common" as cmn
 html, body 
   margin: 0
   font-family: sans-serif
@@ -242,12 +233,27 @@ h1
   font-size:   32px
 
 .hero 
-  margin-top:14vh
+  margin-top: 14vh
   height: 100vh
   width: 100%
+  position: sticky
+  top: 14vh
+  left: 0
+  background-color: #fff
+  z-index: 30
+  opacity: 100
+  transition: .5s
+
+/* 要素の切り替えのためのクラス */
+.hidden 
+  visibility: hidden
+  z-index: -99
+  opacity: 0
+  transition: .5s
 
 .hero-image img
   display: block
+  visibility: visible
   margin: 0 auto
   width: 72vh
 
@@ -255,13 +261,13 @@ h1
 .hero-second-sentence 
   position: relative
   margin-top: -100px
-  padding-top:70px
+  padding-top: 70px
   height: 21vh
   z-index: 0
   p
     display: block
     margin: 50px auto 30px auto
-    color: #002626
+    color: cmn.$primary-900
     font-weight: 600
 .hero-second-sentence:before 
   display: block
@@ -289,9 +295,9 @@ h1
   display: block
   width: 410px
   font-size: 32px
-  color: #002626
+  color: cmn.$primary-900
   letter-spacing: 0.05em
-  font-weight:bold
+  font-weight: bold
   margin: 80px auto 0 auto
   position: relative
 
@@ -303,7 +309,7 @@ h1
   width: 214px
   height: 107px
   border: solid 1px 
-  border-color: #bcc5c9
+  border-color: cmn.$natural-400
   border-radius: 107px 107px 0 0
   border-bottom: 0
 
@@ -313,13 +319,15 @@ h1
   height: 69px
   width: 80px
   margin: 35px auto 0 100px
+  img 
+    animation: wobbling_y 1.2s ease-in-out infinite alternate
 
 .harf-circle p 
   display: flex
   transform: rotate(90deg)
-  color: $primary-900
+  color: cmn.$natural-400
   font-size: 16px
-  margin: 0
+  margin: 0 0 5px 0
   align-items: end
 
 
@@ -338,7 +346,7 @@ h3
   font-size: 16px
   display: block
   text-align: center
-  color: #057e9b
+  color: cmn.$primary-600
   margin-bottom: 30px
 
 
@@ -350,7 +358,7 @@ h3
 h2 
   text-align: center
   margin-bottom: 54px
-  color: #444a4b
+  color: cmn.$natural-800
 
 .life-plan-flex
   margin: 0 auto
@@ -362,7 +370,7 @@ h2
   margin-right: 4vw
   width: 300px
   height: 181px
-  border: 1px solid #d0d6da
+  border: 1px solid cmn.$natural-300
   border-radius: 10px
   padding: 0 50px 30px 50px
 
@@ -373,7 +381,7 @@ h2
     width: 48px
     height: 48px
     border-radius: 48px
-    background-color: #bae1fe
+    background-color: cmn.$primary-200
     color: primary-800
     text-align: center
   .box-header p
@@ -496,11 +504,11 @@ h2
     width: 63vw
     margin-left: 8.7vw
     padding: 34px 5px 10px 58px
-    background-color: #f2f9ff
+    background-color: cmn.$primary-100
   .box-sentence
     margin-bottom: 20px
     p
-      color: #00474d
+      color: cmn.$primary-800
   .box-flex
     display: flex
     justify-content: space-between
@@ -513,12 +521,5 @@ h2
   margin: 150px auto
   width: 72vw
 
-/* footer */
-footer
-  width: 100%
-  height: 60px
-  background-color: #444a4b
-  p
-    display: block
-    margin-left: 60px
+
 </style>

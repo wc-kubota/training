@@ -35,9 +35,9 @@ export default {
   buildModules: [
   ],
 
-  styleResources: {
-    sass: ['~/assets/sass/common.sass'],
-  },
+  // styleResources: {
+  //   sass: ['~/assets/sass/common.sass'],
+  // },
 
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -47,5 +47,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  loaders: {
+    scss: {
+      implementation: require('sass'),
+    }
+  },
 }
