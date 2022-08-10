@@ -198,7 +198,7 @@ export default {
       isActive: false,
       hero: 0,
       why: 0,
-      deg: 0
+      deg: 180
     }
   },
   computed: {
