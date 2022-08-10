@@ -12,6 +12,7 @@
 <style lang="sass">
 /* footer */
 footer
+  overflow-x: hidden 
   width: 100%
   height: 60px
   padding: 18px 60px

@@ -48,3 +48,7 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+html, body, chart
+  overflow-x: hidden 
+</style>

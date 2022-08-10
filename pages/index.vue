@@ -74,7 +74,7 @@
 
     <h2>様々な職種</h2>
     <div class="carousel-box">
-      <hooper :itemsToShow="1.8" :centerMode="true" :pagination="true" :infiniteScroll="true" :autoPlay="true" :playSpeed="4000">
+      <hooper :itemsToShow="1.8" :centerMode="true" :pagination="true" :infiniteScroll="true" :autoPlay="true" :playSpeed="4000" :wheelControl="false">
         <!-- 各スライド -->
         <slide>
             <img src="../assets/images/frontend.png" alt="">
@@ -449,6 +449,7 @@ h2
 
 .hooper
   height: 100%
+  overflow-x: hidden
 
 .hooper-slide
   img
