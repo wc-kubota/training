@@ -21,6 +21,14 @@
         </div>
       </div>
     </div>
+    <!-- スクロール時に隠すやつ -->
+    <div class="hidden-scroll">
+      <div class="hidden-harf-circle" :style="rotateStyle">
+      </div>
+    </div>
+    <!-- 下半分隠すやつ -->
+    <div class="circle-hidden"></div>
+    
   </div>
 
   <!-- ここからwhy -->
@@ -189,16 +197,22 @@ export default {
       width: 100,
       isActive: false,
       hero: 0,
-      why: 0
+      why: 0,
+      deg: 0
     }
   },
   computed: {
     chartScale() {
       return {
         height: `${this.height}%`,
-        width: `${this.width}%`
+        width: `${this.width}%`,
       }
     },
+    rotateStyle() {
+      return {
+        transform: `rotate(${this.deg}deg)`
+      }
+    }
   },
   methods: {
       heroSticky() {
@@ -212,12 +226,22 @@ export default {
          } else {
            this.isActive = false
          }
+     },
+
+     circleRotate() {
+      const height = window.innerHeight;
+      let rotatePercentage = window.pageYOffset/height
+      this.deg = rotatePercentage * 180 + 180
+      console.log(this.deg)
      }
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("scroll", this.heroSticky)
       this.hero = document.getElementById('hero').clientHeight;
+    }),
+    this.$nextTick(() => {
+      window.addEventListener("scroll", this.circleRotate)
     })
   }
 };
@@ -228,6 +252,7 @@ export default {
 html, body 
   margin: 0
   font-family: sans-serif
+  overflow-x: hidden
 
 h1 
   font-size:   32px
@@ -308,7 +333,7 @@ h1
   margin: 0 auto
   width: 214px
   height: 107px
-  border: solid 1px 
+  border: solid 3px 
   border-color: cmn.$natural-400
   border-radius: 107px 107px 0 0
   border-bottom: 0
@@ -330,6 +355,27 @@ h1
   margin: 0 0 5px 0
   align-items: end
 
+/* スクロールサークル隠れている方 */
+.hidden-scroll
+  margin: -107px
+.hidden-harf-circle 
+  transform-origin: 50% 100%
+  margin: 0 auto
+  width: 214px
+  height: 107px
+  border: solid 3px 
+  border-color: cmn.$secondary-400
+  border-radius: 107px 107px 0 0
+  border-bottom: 0
+  z-index: 20
+
+.circle-hidden
+  background-color: #ffffff
+  width: 214px
+  height: 107px
+  margin: 107px auto 0 auto
+  z-index: 30
+  position: relative
 
 /* why */
 .why 
